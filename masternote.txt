@@ -1,0 +1,228 @@
+ftp client
+--------------------------
+host: ftp.dinghyfoundation.org
+user: sabbir@vcourse.net
+password: dingifou_vcourse
+port: 21
+
+db_name:dingifou_vcourse
+db_user:dingifou_vcourse
+db_password:dingifou_vcourse
+
+
+https://codeanddeploy.com/blog/laravel/laravel-8-user-roles-and-permissions-step-by-step-tutorial#kjNAJj9MlMLUcT2n1u7o2VOaO
+https://www.youtube.com/watch?v=LuxFql2CDyg
+https://github.com/bumbummen99/LaravelShoppingcart
+https://www.larashout.com/laravel-e-commerce-application-development-checkout
+https://github.com/NAM00/spV2_Laravel8
+https://github.com/hardevine/LaravelShoppingcart
+
+https://bitbucket.org/smasif/shurjopay-laravel-package/src/master/
+
+php artisan permission:create-permission-routes
+
+php artisan make:seeder CreateAdminUserSeeder
+php artisan make:seeder CreateInstructorUserSeeder
+php artisan make:seeder CreateStudentUserSeeder
+dingifou_vcourse
+php artisan migrate:refresh --path=/database/migrations/my_migration.php
+php artisan migrate:refresh --path=/database/migrations/2021_12_28_105055_create_lessons_table.php
+php artisan migrate:refresh --path=/database/migrations/2021_12_31_093135_create_batches_table.php
+php artisan migrate:refresh --path=/database/migrations/2014_10_12_000000_create_users_table.php
+php artisan migrate:refresh --path=/database/migrations/2021_12_27_114408_create_categories_table.php
+php artisan migrate:refresh --path=/database/migrations/2021_12_28_105055_create_lessons_table.php
+php artisan migrate:refresh --path=/database/migrations/2022_01_03_132725_create_enrollments_table.php
+php artisan migrate:refresh --path=/database/migrations/2022_01_08_163946_create_shurjo_pay_payments_table.php
+php artisan migrate:refresh --path=/database/migrations/2022_01_05_133914_create_enrollment_items_table.php
+php artisan make:migration add_fb_id_column_in_users_table --table==users
+php artisan make:migration add_google_id_column_in_users_table --table==users
+
+php artisan make:controller SocialController
+
+
+php artisan make:command CreateRoutePermissionsCommand
+------------------------------------------------------------------
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
+
+class CreateRoutePermissionsCommand extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'permission:create-permission-routes';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create a permission routes.';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $routes = Route::getRoutes()->getRoutes();
+
+        foreach ($routes as $route) {
+            if ($route->getName() != '' && $route->getAction()['middleware']['0'] == 'web') {
+                $permission = Permission::where('name', $route->getName())->first();
+
+                if (is_null($permission)) {
+                    permission::create(['name' => $route->getName()]);
+                }
+            }
+        }
+
+        $this->info('Permission routes added successfully.');
+    }
+}
+----------------------------------------------------------------------------------
+
+php artisan permission:create-permission-routes
+php artisan db:seed
+php artisan cache:forget spatie.permission.cache
+
+
+Models
+-------------------
+User
+Role
+Permission
+Post
+Course
+Category
+Lesson
+Review
+Experience
+Education
+Batch
+Enrollment
+
+
+Review
+-----------------
+id
+text
+rating
+course_id
+user_id
+
+
+Role
+--------------
+Admin
+Instructor
+Student
+
+
+Course
+---------------
+id
+name
+Instructor
+category
+price
+time_duration
+media_link
+rating_number
+rating_quantity
+number_of_lessons
+student_enrolled
+discount
+description
+requirments
+forwho
+what_will_learn
+status
+
+Lesson
+-------------------------------
+course_id
+lesson_number
+lesson_name
+lesson_media_link
+lesson_thumbnail
+lesson_description
+lesson_note
+lesson_comments
+
+
+Batch
+---------------------
+id
+course_id
+status------------------ srarting soon/running/complete
+
+Enrollment
+--------------
+id
+enrollment_number
+student_id
+course_id
+batch_id
+transaction_id
+transaction_ammount
+payment_status
+payment_method
+
+
+
+
+Instructor------------------name,email,user_name,phone_number,referrer_id,affiliate_link,about_me,education_id,experience_id,designation,experties,facebook,linkedin
+
+
+
+
+$table->bigIncrements('id'); 	Incrementing ID using a "big integer" equivalent.
+$table->bigInteger('votes'); 	BIGINT equivalent to the table
+$table->binary('data'); 	BLOB equivalent to the table
+$table->boolean('confirmed'); 	BOOLEAN equivalent to the table
+$table->char('name', 4); 	CHAR equivalent with a length
+$table->date('created_at'); 	DATE equivalent to the table
+$table->dateTime('created_at'); 	DATETIME equivalent to the table
+$table->decimal('amount', 5, 2); 	DECIMAL equivalent with a precision and scale
+$table->double('column', 15, 8); 	DOUBLE equivalent with precision, 15 digits in total and 8 after the decimal point
+$table->enum('choices', array('foo', 'bar')); 	ENUM equivalent to the table
+$table->float('amount'); 	FLOAT equivalent to the table
+$table->increments('id'); 	Incrementing ID to the table (primary key).
+$table->integer('votes'); 	INTEGER equivalent to the table
+$table->longText('description'); 	LONGTEXT equivalent to the table
+$table->mediumInteger('numbers'); 	MEDIUMINT equivalent to the table
+$table->mediumText('description'); 	MEDIUMTEXT equivalent to the table
+$table->morphs('taggable'); 	Adds INTEGER taggable_id and STRING taggable_type
+$table->nullableTimestamps(); 	Same as timestamps(), except allows NULLs
+$table->smallInteger('votes'); 	SMALLINT equivalent to the table
+$table->tinyInteger('numbers'); 	TINYINT equivalent to the table
+$table->softDeletes(); 	Adds deleted_at column for soft deletes
+$table->string('email'); 	VARCHAR equivalent column
+$table->string('name', 100); 	VARCHAR equivalent with a length
+$table->text('description'); 	TEXT equivalent to the table
+$table->time('sunrise'); 	TIME equivalent to the table
+$table->timestamp('added_on'); 	TIMESTAMP equivalent to the table
+$table->timestamps(); 	Adds created_at and updated_at columns
+$table->rememberToken(); 	Adds remember_token as VARCHAR(100) NULL
+->nullable() 	Designate that the column allows NULL values
+->default($value) 	Declare a default value for a column
+->unsigned() 	Set INTEGER to UNSIGNED

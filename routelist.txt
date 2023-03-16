@@ -1,0 +1,304 @@
++--------+-----------+-------------------------------+---------------------+------------------------------------------------------------+---------------------------------------------+
+| Domain | Method    | URI                           | Name                | Action                                                     | Middleware
+                 |
++--------+-----------+-------------------------------+---------------------+------------------------------------------------------------+---------------------------------------------+
+|        | GET|HEAD  | /                             | home.index          | App\Http\Controllers\HomeController@index                  | web
+                 |
+|        | GET|HEAD  | about                         |                     | Closure                                                    | web
+                 |
+|        | GET|HEAD  | api/user                      |                     | Closure                                                    | api
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate:sanctum    |
+|        | GET|HEAD  | batches                       | batches.index       | App\Http\Controllers\BatchController@index                 | web
+                 |
+|        | POST      | batches                       | batches.store       | App\Http\Controllers\BatchController@store                 | web
+                 |
+|        | GET|HEAD  | batches/create                | batches.create      | App\Http\Controllers\BatchController@create                | web
+                 |
+|        | GET|HEAD  | batches/{batch}               | batches.show        | App\Http\Controllers\BatchController@show                  | web
+                 |
+|        | DELETE    | batches/{batch}               | batches.destroy     | App\Http\Controllers\BatchController@destroy               | web
+                 |
+|        | PUT|PATCH | batches/{batch}               | batches.update      | App\Http\Controllers\BatchController@update                | web
+                 |
+|        | GET|HEAD  | batches/{batch}/edit          | batches.edit        | App\Http\Controllers\BatchController@edit                  | web
+                 |
+|        | GET|HEAD  | cart                          |                     | Closure                                                    | web
+                 |
+|        | GET|HEAD  | carts                         | cart.index          | App\Http\Controllers\CartController@index                  | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | carts/addtocart/{course}      | cart.addToCart      | App\Http\Controllers\CartController@addToCart              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | carts/removeFromCart          | cart.removeFromCart | App\Http\Controllers\CartController@removeFromCart         | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | carts/updateQuantity          | cart.updateQuantity | App\Http\Controllers\CartController@updateQuantity         | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | categories                    | categories.index    | App\Http\Controllers\CategoryController@index              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | categories                    | categories.store    | App\Http\Controllers\CategoryController@store              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | categories/create             | categories.create   | App\Http\Controllers\CategoryController@create             | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | categories/{category}         | categories.show     | App\Http\Controllers\CategoryController@show               | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | PUT|PATCH | categories/{category}         | categories.update   | App\Http\Controllers\CategoryController@update             | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | DELETE    | categories/{category}         | categories.destroy  | App\Http\Controllers\CategoryController@destroy            | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | categories/{category}/edit    | categories.edit     | App\Http\Controllers\CategoryController@edit               | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | contact                       |                     | Closure                                                    | web
+                 |
+|        | GET|HEAD  | courses                       | courses.index       | App\Http\Controllers\CourseController@index                | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\RedirectIfAuthenticated |
+|        | GET|HEAD  | courses/create                | courses.create      | App\Http\Controllers\CourseController@create               | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | courses/create                | courses.store       | App\Http\Controllers\CourseController@store                | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | courses/pending               | courses.pending     | App\Http\Controllers\CourseController@pending              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | courses/{course}/approve      | courses.approve     | App\Http\Controllers\CourseController@approve              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | DELETE    | courses/{course}/delete       | courses.destroy     | App\Http\Controllers\CourseController@destroy              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | courses/{course}/edit         | courses.edit        | App\Http\Controllers\CourseController@edit                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | courses/{course}/pendingshow  | courses.pendingshow | App\Http\Controllers\CourseController@pendingshow          | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | courses/{course}/show         | courses.show        | App\Http\Controllers\CourseController@show                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | PATCH     | courses/{course}/update       | courses.update      | App\Http\Controllers\CourseController@update               | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | courses/{course}/watch        | courses.watch       | App\Http\Controllers\CourseController@watch                | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | dashboard                     | home.dashboard      | App\Http\Controllers\HomeController@dashboard              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | educations                    | educations.index    | App\Http\Controllers\EducationController@index             | web
+                 |
+|        | POST      | educations                    | educations.store    | App\Http\Controllers\EducationController@store             | web
+                 |
+|        | GET|HEAD  | educations/create             | educations.create   | App\Http\Controllers\EducationController@create            | web
+                 |
+|        | GET|HEAD  | educations/{education}        | educations.show     | App\Http\Controllers\EducationController@show              | web
+                 |
+|        | DELETE    | educations/{education}        | educations.destroy  | App\Http\Controllers\EducationController@destroy           | web
+                 |
+|        | PUT|PATCH | educations/{education}        | educations.update   | App\Http\Controllers\EducationController@update            | web
+                 |
+|        | GET|HEAD  | educations/{education}/edit   | educations.edit     | App\Http\Controllers\EducationController@edit              | web
+                 |
+|        | GET|HEAD  | event                         |                     | Closure                                                    | web
+                 |
+|        | GET|HEAD  | events                        |                     | Closure                                                    | web
+                 |
+|        | POST      | experiences                   | experiences.store   | App\Http\Controllers\ExperienceController@store            | web
+                 |
+|        | GET|HEAD  | experiences                   | experiences.index   | App\Http\Controllers\ExperienceController@index            | web
+                 |
+|        | GET|HEAD  | experiences/create            | experiences.create  | App\Http\Controllers\ExperienceController@create           | web
+                 |
+|        | GET|HEAD  | experiences/{experience}      | experiences.show    | App\Http\Controllers\ExperienceController@show             | web
+                 |
+|        | PUT|PATCH | experiences/{experience}      | experiences.update  | App\Http\Controllers\ExperienceController@update           | web
+                 |
+|        | DELETE    | experiences/{experience}      | experiences.destroy | App\Http\Controllers\ExperienceController@destroy          | web
+                 |
+|        | GET|HEAD  | experiences/{experience}/edit | experiences.edit    | App\Http\Controllers\ExperienceController@edit             | web
+                 |
+|        | GET|HEAD  | lessons                       | lessons.index       | App\Http\Controllers\LessonController@index                | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | lessons                       | lessons.store       | App\Http\Controllers\LessonController@store                | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | lessons/create                | lessons.create      | App\Http\Controllers\LessonController@create               | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | DELETE    | lessons/{lesson}              | lessons.destroy     | App\Http\Controllers\LessonController@destroy              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | lessons/{lesson}              | lessons.show        | App\Http\Controllers\LessonController@show                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | PUT|PATCH | lessons/{lesson}              | lessons.update      | App\Http\Controllers\LessonController@update               | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | lessons/{lesson}/edit         | lessons.edit        | App\Http\Controllers\LessonController@edit                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | login                         | login.perform       | App\Http\Controllers\LoginController@login                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\RedirectIfAuthenticated |
+|        | GET|HEAD  | login                         | login.show          | App\Http\Controllers\LoginController@show                  | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\RedirectIfAuthenticated |
+|        | GET|HEAD  | logout                        | logout.perform      | App\Http\Controllers\LogoutController@perform              | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | permissions                   | permissions.store   | App\Http\Controllers\PermissionController@store            | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | permissions                   | permissions.index   | App\Http\Controllers\PermissionController@index            | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | permissions/create            | permissions.create  | App\Http\Controllers\PermissionController@create           | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | DELETE    | permissions/{permission}      | permissions.destroy | App\Http\Controllers\PermissionController@destroy          | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | permissions/{permission}      | permissions.show    | App\Http\Controllers\PermissionController@show             | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | PUT|PATCH | permissions/{permission}      | permissions.update  | App\Http\Controllers\PermissionController@update           | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | permissions/{permission}/edit | permissions.edit    | App\Http\Controllers\PermissionController@edit             | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | register                      | register.perform    | App\Http\Controllers\RegisterController@register           | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\RedirectIfAuthenticated |
+|        | GET|HEAD  | register                      | register.show       | App\Http\Controllers\RegisterController@show               | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\RedirectIfAuthenticated |
+|        | GET|HEAD  | reviews                       | reviews.index       | App\Http\Controllers\ReviewController@index                | web
+                 |
+|        | POST      | reviews                       | reviews.store       | App\Http\Controllers\ReviewController@store                | web
+                 |
+|        | GET|HEAD  | reviews/create                | reviews.create      | App\Http\Controllers\ReviewController@create               | web
+                 |
+|        | PUT|PATCH | reviews/{review}              | reviews.update      | App\Http\Controllers\ReviewController@update               | web
+                 |
+|        | DELETE    | reviews/{review}              | reviews.destroy     | App\Http\Controllers\ReviewController@destroy              | web
+                 |
+|        | GET|HEAD  | reviews/{review}              | reviews.show        | App\Http\Controllers\ReviewController@show                 | web
+                 |
+|        | GET|HEAD  | reviews/{review}/edit         | reviews.edit        | App\Http\Controllers\ReviewController@edit                 | web
+                 |
+|        | GET|HEAD  | roles                         | roles.index         | App\Http\Controllers\RoleController@index                  | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | roles                         | roles.store         | App\Http\Controllers\RoleController@store                  | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | roles/create                  | roles.create        | App\Http\Controllers\RoleController@create                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | roles/{role}                  | roles.show          | App\Http\Controllers\RoleController@show                   | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | PUT|PATCH | roles/{role}                  | roles.update        | App\Http\Controllers\RoleController@update                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | DELETE    | roles/{role}                  | roles.destroy       | App\Http\Controllers\RoleController@destroy                | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | roles/{role}/edit             | roles.edit          | App\Http\Controllers\RoleController@edit                   | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | sanctum/csrf-cookie           |                     | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show | web
+                 |
+|        | GET|HEAD  | users                         | users.index         | App\Http\Controllers\UserController@index                  | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | POST      | users/create                  | users.store         | App\Http\Controllers\UserController@store                  | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | users/create                  | users.create        | App\Http\Controllers\UserController@create                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | DELETE    | users/{user}/delete           | users.destroy       | App\Http\Controllers\UserController@destroy                | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | users/{user}/edit             | users.edit          | App\Http\Controllers\UserController@edit                   | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | users/{user}/show             | users.show          | App\Http\Controllers\UserController@show                   | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | PATCH     | users/{user}/update           | users.update        | App\Http\Controllers\UserController@update                 | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
+|        | GET|HEAD  | {user}/instructor             | profile.instructor  | App\Http\Controllers\ProfileController@instructor          | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\RedirectIfAuthenticated |
+|        | GET|HEAD  | {user}/profile                | profile.myprofile   | App\Http\Controllers\ProfileController@myprofile           | web
+                 |
+|        |           |                               |                     |                                                            | App\Http\Middleware\Authenticate            |
+|        |           |                               |                     |                                                            | App\Http\Middleware\PermissionMiddleware    |
++--------+-----------+-------------------------------+---------------------+------------------------------------------------------------+---------------------------------------------+
